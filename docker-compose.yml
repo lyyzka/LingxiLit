@@ -9,8 +9,8 @@ services:
       CLICKHOUSE_ALWAYS_RUN_INITDB_SCRIPTS: true
     volumes:
       - clickhouse-data:/var/lib/clickhouse
-      - ./assets/clickhouse-config.xml:/etc/clickhouse-server/config.d/custom-config.xml:ro
-      - ./assets/clickhouse-init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+      - /var/lib/openship/openlit/assets/clickhouse-config.xml:/etc/clickhouse-server/config.d/custom-config.xml:ro
+      - /var/lib/openship/openlit/assets/clickhouse-init.sh:/docker-entrypoint-initdb.d/init.sh:ro
     ports:
       - "9000:9000"
       - "8123:8123"
@@ -63,7 +63,7 @@ services:
         condition: service_healthy
     volumes:
       - openlit-data:/app/client/data
-      - ./assets/otel-collector-config.yaml:/etc/otel/otel-collector-config.yaml
+      - /var/lib/openship/openlit/assets/otel-collector-config.yaml:/etc/otel/otel-collector-config.yaml:ro
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://localhost:3000').then(r=>{process.exit(r.ok?0:1)}).catch(()=>process.exit(1))"]
       interval: 5s
