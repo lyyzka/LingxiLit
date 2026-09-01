@@ -23,7 +23,8 @@ services:
     restart: always
 
   openlit:
-    image: ghcr.io/openlit/openlit:latest
+    image: accel.way2api.fun/ghcr.io/lyyzka/lingxilit:latest
+    pull_policy: always
     container_name: openlit
     environment:
       TELEMETRY_ENABLED: "true"
