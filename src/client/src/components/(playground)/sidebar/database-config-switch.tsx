@@ -128,7 +128,7 @@ export default function DatabaseConfigSwitch({
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={() => setCreateOpen(true)}>
               <Plus className="mr-2 size-3.5" />
-              Create environment
+				创建环境
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -139,7 +139,7 @@ export default function DatabaseConfigSwitch({
           <DialogHeader>
 							<DialogTitle>创建环境</DialogTitle>
             <DialogDescription>
-              Environments group the ClickHouse database and telemetry connectors used by this project.
+				环境用于归组此项目的 ClickHouse 数据库和观测连接器。
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-2">
@@ -153,7 +153,7 @@ export default function DatabaseConfigSwitch({
           </div>
           <DialogFooter>
             <Button type="button" onClick={() => void createEnvironment()} disabled={saving || !name.trim()}>
-              {saving ? "Creating…" : "Create environment"}
+				{saving ? "创建中…" : "创建环境"}
             </Button>
           </DialogFooter>
         </DialogContent>

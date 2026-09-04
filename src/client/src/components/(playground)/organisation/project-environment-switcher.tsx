@@ -58,14 +58,14 @@ export default function ProjectEnvironmentSwitcher({ value, onChange }: { value:
 					<DropdownMenuSeparator />
 					{environments.map((environment) => <DropdownMenuItem key={environment} onSelect={() => onChange(environment)}>{environment}</DropdownMenuItem>)}
 					<DropdownMenuSeparator />
-					<DropdownMenuItem onSelect={() => setOpen(true)}><Plus className="mr-2 h-3.5 w-3.5" />Create environment</DropdownMenuItem>
+					<DropdownMenuItem onSelect={() => setOpen(true)}><Plus className="mr-2 h-3.5 w-3.5" />创建环境</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogContent>
-					<DialogHeader><DialogTitle>Create environment</DialogTitle><DialogDescription>Environments group ClickHouse databases and observability connectors inside this project.</DialogDescription></DialogHeader>
-					<div className="space-y-2"><Label htmlFor="new-project-environment">Environment name</Label><Input id="new-project-environment" value={name} onChange={(event) => setName(event.target.value.toLowerCase())} placeholder="staging" /></div>
-					<DialogFooter><Button type="button" onClick={create} disabled={saving || !name.trim()}>{saving ? "Creating…" : "Create environment"}</Button></DialogFooter>
+					<DialogHeader><DialogTitle>创建环境</DialogTitle><DialogDescription>环境用于归组此项目的 ClickHouse 数据库和观测连接器。</DialogDescription></DialogHeader>
+					<div className="space-y-2"><Label htmlFor="new-project-environment">环境名称</Label><Input id="new-project-environment" value={name} onChange={(event) => setName(event.target.value.toLowerCase())} placeholder="staging" /></div>
+					<DialogFooter><Button type="button" onClick={create} disabled={saving || !name.trim()}>{saving ? "创建中…" : "创建环境"}</Button></DialogFooter>
 				</DialogContent>
 			</Dialog>
 		</div>
