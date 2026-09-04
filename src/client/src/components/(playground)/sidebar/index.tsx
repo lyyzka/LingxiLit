@@ -5,11 +5,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import {
 	ChevronRight,
+	Activity,
 	Lock,
 	Search,
 	X,
 } from "lucide-react";
-import Otter from "@/components/svg/otter";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
@@ -166,7 +166,7 @@ function SectionPanel({ section, pathname, currentUrl, onClose }: { section: Sid
 					{section.icon}
 						<p className="text-[15px] font-semibold">{section.title}</p>
 				</div>
-				<Button variant="ghost" size="icon" onClick={onClose} aria-label="Close navigation panel" className="size-8 text-stone-700 hover:bg-stone-200 dark:text-stone-200 dark:hover:bg-stone-800"><X className="size-4" /></Button>
+				<Button variant="ghost" size="icon" onClick={onClose} aria-label="关闭导航面板" className="size-8 text-stone-700 hover:bg-stone-200 dark:text-stone-200 dark:hover:bg-stone-800"><X className="size-4" /></Button>
 			</div>
 				<div className="scrollbar-hidden overflow-y-auto p-2">
 				{groups ? (
@@ -184,7 +184,7 @@ function SectionPanel({ section, pathname, currentUrl, onClose }: { section: Sid
 					</div>
 				)}
 			</div>
-			{section.title === "Settings" ? <div className="flex items-center justify-between border-t border-stone-200 px-3 py-2.5 dark:border-stone-800"><span className="text-[13px] font-medium text-stone-600 dark:text-stone-300">Appearance</span><ThemeToggleSwitch /></div> : null}
+			{section.title === "设置" ? <div className="flex items-center justify-between border-t border-stone-200 px-3 py-2.5 dark:border-stone-800"><span className="text-[13px] font-medium text-stone-600 dark:text-stone-300">外观</span><ThemeToggleSwitch /></div> : null}
 		</div>
 	);
 }
@@ -253,9 +253,9 @@ export default function Sidebar() {
 			)}
 			<div data-state={isExpanded ? "open" : "closed"} className="relative z-40 flex h-full min-h-0 flex-col">
 				<div className="px-2 pb-3 pt-3">
-					<Button variant="outline" onClick={() => setCommandOpen(true)} className={cn("h-9 w-full justify-start gap-2 border-stone-200 bg-transparent px-2.5 text-[13px] text-stone-500 shadow-none hover:bg-stone-200/60 dark:border-stone-800 dark:hover:bg-stone-800/60", !isExpanded && "justify-center px-2")} aria-label="Search navigation">
+					<Button variant="outline" onClick={() => setCommandOpen(true)} className={cn("h-9 w-full justify-start gap-2 border-stone-200 bg-transparent px-2.5 text-[13px] text-stone-500 shadow-none hover:bg-stone-200/60 dark:border-stone-800 dark:hover:bg-stone-800/60", !isExpanded && "justify-center px-2")} aria-label="搜索导航">
 						<Search className="size-4 shrink-0" />
-						<span className={cn("flex-1 text-left", !isExpanded && "hidden")}>Search data</span>
+						<span className={cn("flex-1 text-left", !isExpanded && "hidden")}>搜索数据</span>
 						<kbd className={cn("rounded border border-stone-200 px-1 py-0.5 text-[10px] dark:border-stone-700", !isExpanded && "hidden")}>⌘K</kbd>
 					</Button>
 				</div>
@@ -263,9 +263,9 @@ export default function Sidebar() {
 				{isExpanded && (
 					<div className="mx-2 grid grid-cols-2 gap-1 rounded-lg border border-stone-200 bg-stone-100 p-1 dark:border-stone-800 dark:bg-stone-900">
 						<Button variant="ghost" className={cn("h-8 rounded-md px-2 text-[13px] text-stone-600 hover:bg-white/70 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800/70 dark:hover:text-white", !openSection && !pathname.startsWith("/chat") && "bg-white text-stone-950 shadow-sm dark:bg-stone-800 dark:text-white")} onClick={() => { setOpenSection(null); router.push("/home"); }} aria-label="Browse">
-							<span>Browse</span>
+							<span>浏览</span>
 						</Button>
-						<Link href="/chat" className={cn("flex h-8 items-center justify-center gap-1.5 rounded-md px-2 text-[13px] font-medium text-stone-600 hover:bg-white/70 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-stone-300 dark:focus-visible:ring-offset-stone-950", !openSection && isOtterActive && "bg-white text-stone-950 shadow-sm dark:bg-stone-800 dark:text-white")}><Otter className="size-4 shrink-0" />Otter</Link>
+						<Link href="/telemetry" className={cn("flex h-8 items-center justify-center gap-1.5 rounded-md px-2 text-[13px] font-medium text-stone-600 hover:bg-white/70 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800/70 dark:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-stone-300 dark:focus-visible:ring-offset-stone-950", !openSection && isOtterActive && "bg-white text-stone-950 shadow-sm dark:bg-stone-800 dark:text-white")}><Activity className="size-4 shrink-0" />观测</Link>
 					</div>
 				)}
 
@@ -287,10 +287,10 @@ export default function Sidebar() {
 			{openSection && <SectionPanel section={openSection} pathname={pathname} currentUrl={currentUrl} onClose={() => setOpenSection(null)} />}
 
 			<CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
-				<CommandInput placeholder="Search OpenLIT navigation..." />
+					<CommandInput placeholder="搜索导航…" />
 				<CommandList>
-					<CommandEmpty>No navigation items found.</CommandEmpty>
-					<CommandGroup heading="Navigation">
+						<CommandEmpty>未找到导航项。</CommandEmpty>
+						<CommandGroup heading="导航">
 						{allItems.filter((item) => item.link).map((item) => <CommandItem key={item.text} value={item.text} onSelect={() => setCommandOpen(false)} asChild><Link href={item.link || "#"} className="gap-3">{item.icon}<span>{item.text}</span></Link></CommandItem>)}
 					</CommandGroup>
 				</CommandList>

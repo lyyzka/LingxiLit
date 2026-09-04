@@ -414,7 +414,7 @@ function MetricRecord({
 					<div className="h-full rounded-full bg-stone-400 dark:bg-stone-500" style={{ width }} />
 				</div>
 				<div className="mt-1 flex items-center justify-between text-[11px] text-stone-500 dark:text-stone-400">
-					<span>latest compared to max in this window</span>
+					<span>与当前时间范围内的最大值相比</span>
 					<div className="flex gap-2">
 						<span>min {Number.isFinite(minValue) ? minValue.toLocaleString(undefined, { maximumFractionDigits: 4 }) : "-"}</span>
 						<span>max {Number.isFinite(maxValue) ? maxValue.toLocaleString(undefined, { maximumFractionDigits: 4 }) : "-"}</span>

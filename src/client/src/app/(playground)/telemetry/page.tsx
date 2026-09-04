@@ -9,10 +9,6 @@ import {
 } from "@/components/(playground)/observability/registry";
 import { usePostHog } from "posthog-js/react";
 import { CLIENT_EVENTS } from "@/constants/events";
-import { stripFilterParams } from "@/helpers/client/filter-persistence";
-import { prepareObservabilitySignalChange } from "@/helpers/client/observability";
-import { getUpdateConfig, getUpdateFilter } from "@/selectors/filter";
-import { useRootStore } from "@/store";
 import FeaturePageHeader from "@/components/(playground)/feature-page-header";
 import getMessage from "@/constants/messages";
 
@@ -20,9 +16,7 @@ export default function TelemetryPage() {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const posthog = usePostHog();
-	const updateConfig = useRootStore(getUpdateConfig);
-	const updateFilter = useRootStore(getUpdateFilter);
-	const activeTab = searchParams.get("tab") || "traces";
+	const activeTab = "traces";
 	const activeConfig = getSignalConfig(activeTab);
 	const ActiveIcon = activeConfig.icon;
 
@@ -32,30 +26,13 @@ export default function TelemetryPage() {
 		});
 	}, [activeConfig.key, posthog]);
 
-	// Coding Sessions / Coding Users are no longer first-class
-	// tabs on the Telemetry page — they live under /agents now.
-	// Bounce any deep link that still asks for them so we don't
-	// render a hidden tab with no way to navigate away.
 	useEffect(() => {
-		if (activeTab === "sessions" || activeTab === "coding_users") {
+		if (searchParams.get("tab") && searchParams.get("tab") !== "traces") {
 			const params = new URLSearchParams(searchParams.toString());
 			params.set("tab", "traces");
 			router.replace(`/telemetry?${params.toString()}`, { scroll: false });
 		}
-		// `searchParams` is intentionally not in deps — we react to
-		// `activeTab` only; the URL update inside this effect also
-		// updates `searchParams`, which would otherwise loop.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [activeTab]);
-
-	const onTabChange = (value: string) => {
-		prepareObservabilitySignalChange(updateConfig, updateFilter);
-		const params = new URLSearchParams(searchParams.toString());
-		stripFilterParams(params);
-		params.set("tab", value);
-		params.delete("selected");
-		router.replace(`/telemetry?${params.toString()}`, { scroll: false });
-	};
+	}, [router, searchParams]);
 
 	return (
 		<div className="flex h-full w-full flex-col overflow-hidden">
@@ -75,17 +52,12 @@ export default function TelemetryPage() {
 						    and the dedicated coding-agent hub at
 						    /agents is where users go for those
 						    drilldowns. */}
-						{OBSERVABILITY_SIGNALS.filter(
-							(signal) =>
-								signal.key !== "sessions" &&
-								signal.key !== "coding_users",
-						).map((signal) => {
+						{OBSERVABILITY_SIGNALS.filter((signal) => signal.key === "traces").map((signal) => {
 							const Icon = signal.icon;
 							const isActive = signal.key === activeConfig.key;
 							return (
 								<button
 									key={signal.key}
-									onClick={() => onTabChange(signal.key)}
 									className={`inline-flex items-center gap-2 rounded-md border px-2.5 py-1.5 text-xs transition ${isActive
 											? signal.tone
 											: "border-stone-200 bg-stone-50 text-stone-600 hover:bg-stone-100 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800"

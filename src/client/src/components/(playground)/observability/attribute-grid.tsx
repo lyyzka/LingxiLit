@@ -86,7 +86,7 @@ function KeyValueRows({ entries }: { entries: Array<[string, unknown]> }) {
 
 function ArrayGroups({ rows }: { rows: unknown[] }) {
 	if (!rows.length) {
-		return <div className="px-3 py-6 text-sm text-stone-400">No data.</div>;
+		return <div className="px-3 py-6 text-sm text-stone-400">暂无数据。</div>;
 	}
 
 	return (
@@ -106,7 +106,7 @@ function ArrayGroups({ rows }: { rows: unknown[] }) {
 						{entries.length ? (
 							<KeyValueRows entries={entries} />
 						) : (
-							<div className="px-3 py-4 text-sm text-stone-400">No data.</div>
+							<div className="px-3 py-4 text-sm text-stone-400">暂无数据。</div>
 						)}
 					</div>
 				);
@@ -133,7 +133,7 @@ export default function AttributeGrid({
 			) : entries.length ? (
 				<KeyValueRows entries={entries} />
 			) : (
-				<div className="px-3 py-6 text-sm text-stone-400">No attributes.</div>
+				<div className="px-3 py-6 text-sm text-stone-400">暂无属性。</div>
 			)}
 		</section>
 	);

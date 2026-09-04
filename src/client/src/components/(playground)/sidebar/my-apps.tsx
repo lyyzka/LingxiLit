@@ -212,7 +212,7 @@ export default function MyApps({
 			<div className="flex items-center justify-between px-2 pb-1">
 					<div className="flex min-w-0 items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
 					{icon}
-					<span>My apps</span>
+					<span>我的应用</span>
 				</div>
 				<Button
 					variant="ghost"

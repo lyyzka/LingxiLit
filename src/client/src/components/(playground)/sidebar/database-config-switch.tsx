@@ -108,7 +108,7 @@ export default function DatabaseConfigSwitch({
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-64" side={contentSide} align={contentAlign}>
-            <DropdownMenuLabel>Environments</DropdownMenuLabel>
+					<DropdownMenuLabel>环境</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {environments.map((environment) => {
               return (
@@ -137,13 +137,13 @@ export default function DatabaseConfigSwitch({
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Create environment</DialogTitle>
+							<DialogTitle>创建环境</DialogTitle>
             <DialogDescription>
               Environments group the ClickHouse database and telemetry connectors used by this project.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-2">
-            <Label htmlFor="global-new-environment">Environment name</Label>
+							<Label htmlFor="global-new-environment">环境名称</Label>
             <Input
               id="global-new-environment"
               value={name}

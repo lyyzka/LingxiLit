@@ -1,27 +1,16 @@
-import OpenTelemetrySvg from "@/components/svg/opentelemetry";
-import { getEnterpriseSidebarItems } from "@/features/sidebar";
 import getMessage from "@/constants/messages";
 import { SidebarItemProps } from "@/types/sidebar";
 import {
 	Activity,
 	Cable,
-	BookKey,
-	BookOpen,
-	BookText,
 	Bot,
 	Boxes,
-	BrainCircuit,
 	Building2,
-	CircleDollarSign,
-	Component,
 	FolderKanban,
 	Home,
 	Key,
 	LayoutDashboard,
-	MonitorCog,
-	MonitorPlay,
 	SettingsIcon,
-	SlidersHorizontal,
 	User,
 } from "lucide-react";
 
@@ -32,18 +21,18 @@ const m = getMessage();
 export const SIDEBAR_ITEMS: SidebarItemProps[] = [
 	{
 		icon: <Home className={ICON_CLASSES} />,
-		text: "Home",
+		text: "首页",
 		link: "/home",
 		type: "action",
 	},
 	{
 		icon: <LayoutDashboard className={ICON_CLASSES} />,
-		text: "Dashboards",
+		text: "仪表盘",
 		link: "/dashboards",
 		type: "action",
 	},
 	{
-		title: "Apps",
+		title: "应用",
 		type: "section",
 		icon: <Boxes className={ICON_CLASSES} />,
 		groups: [
@@ -52,94 +41,33 @@ export const SIDEBAR_ITEMS: SidebarItemProps[] = [
 				children: [
 					{
 						icon: <Activity className={ICON_CLASSES} />,
-						text: "Telemetry",
+						text: "观测",
 						link: "/telemetry",
 						type: "action",
 					},
-					...getEnterpriseSidebarItems("monitoring", ICON_CLASSES),
 					{
 						icon: <Bot className={ICON_CLASSES} />,
-						text: "Agents",
+						text: "智能体",
 						link: "/agents",
 						type: "action",
 					},
-					{
-						icon: <MonitorCog className={ICON_CLASSES} />,
-						text: m.FEATURE_EVALS,
-						link: "/evaluations",
-						type: "action",
-					},
-					{
-						icon: <CircleDollarSign className={ICON_CLASSES} />,
-						text: m.COSTS_TITLE,
-						link: "/costs",
-						type: "action",
-					},
-					{
-						icon: <OpenTelemetrySvg className={ICON_CLASSES} />,
-						text: "Fleet Hub",
-						link: "/fleet-hub",
-						type: "action",
-					},
 				],
 			},
 			{
-				title: m.SIDEBAR_DEVELOP,
-				children: [
-					{
-						icon: <Component className={ICON_CLASSES} />,
-						text: "Prompt Hub",
-						link: "/prompt-hub",
-						type: "action",
-					},
-					{
-						icon: <BookKey className={ICON_CLASSES} />,
-						text: "Vault",
-						link: "/vault",
-						type: "action",
-					},
-					{
-						icon: <BookOpen className={ICON_CLASSES} />,
-						text: "Contexts",
-						link: "/context",
-						type: "action",
-					},
-					{
-						icon: <BrainCircuit className={ICON_CLASSES} />,
-						text: m.FEATURE_MEMORY,
-						link: "/memory",
-						type: "action",
-					},
-					{
-						icon: <SlidersHorizontal className={ICON_CLASSES} />,
-						text: "Rule Engine",
-						link: "/rule-engine",
-						type: "action",
-					},
-					{
-						icon: <MonitorPlay className={ICON_CLASSES} />,
-						text: "Openground",
-						link: "/openground",
-						type: "action",
-					},
-				],
-			},
-			{
-				title: "Configuration",
+				title: "配置",
 				children: [
 					{
 						icon: <Cable className={ICON_CLASSES} />,
-						text: "Connectors",
+						text: "数据连接",
 						link: "/connectors",
 						type: "action",
 					},
-					...getEnterpriseSidebarItems("configuration", ICON_CLASSES),
 				],
 			},
 		],
 	},
 	{
-		title: "Settings",
+		title: "设置",
 		type: "section",
 		collapsible: true,
 		icon: <SettingsIcon className={ICON_CLASSES} />,
@@ -168,19 +96,6 @@ export const SIDEBAR_ITEMS: SidebarItemProps[] = [
 				link: "/settings/api-keys",
 				type: "action",
 			},
-			{
-				icon: <BookOpen className={ICON_CLASSES} />,
-				text: "OpenAPI Spec",
-				link: "/openapi-spec",
-				type: "action",
-			},
 		],
-	},
-	{
-		text: "Documentation",
-		link: "https://docs.openlit.io/",
-		target: "_blank",
-		icon: <BookText className={ICON_CLASSES} />,
-		type: "action",
 	},
 ];
