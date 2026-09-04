@@ -23,7 +23,7 @@ services:
     restart: always
 
   openlit:
-    image: accel.way2api.fun/ghcr.io/lyyzka/lingxilit:sha-f5ed81b38008d67372bb3f9e0ecc60a66a59d5f5
+    image: accel.way2api.fun/ghcr.io/lyyzka/lingxilit:sha-8f29a29635946fea8f33cceb11f890d713b5df5f
     pull_policy: always
     container_name: openlit
     environment:
