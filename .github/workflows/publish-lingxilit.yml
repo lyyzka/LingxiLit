@@ -19,6 +19,9 @@ jobs:
   publish:
     if: github.repository == 'lyyzka/LingxiLit'
     runs-on: ubuntu-latest
+    environment: production
+    env:
+      ARCANE_GIT_SYNC_WEBHOOK_URL: ${{ secrets.ARCANE_GIT_SYNC_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v7
 
@@ -57,5 +60,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docker-compose.yml
-          git diff --cached --quiet || git commit -m "deploy: pin LingxiLit image to sha-${GITHUB_SHA}"
+          git diff --cached --quiet || git commit -m "deploy: pin LingxiLit image to sha-${GITHUB_SHA} [skip ci]"
           git push
+
+      - name: Trigger Arcane Git Sync
+        if: env.ARCANE_GIT_SYNC_WEBHOOK_URL != ''
+        run: |
+          test -n "$ARCANE_GIT_SYNC_WEBHOOK_URL"
+          code=$(curl --silent --output /dev/null --write-out '%{http_code}' --request POST "$ARCANE_GIT_SYNC_WEBHOOK_URL")
+          test "$code" = 202
