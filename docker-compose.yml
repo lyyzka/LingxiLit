@@ -2,7 +2,7 @@ name: lingxilit
 
 services:
   clickhouse:
-    image: clickhouse/clickhouse-server:24.4.1
+    image: accel.way2api.fun/docker.io/clickhouse/clickhouse-server:24.4.1
     container_name: clickhouse
     environment:
       CLICKHOUSE_PASSWORD: ${OPENLIT_DB_PASSWORD:-OPENLIT}
