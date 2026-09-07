@@ -55,6 +55,7 @@ class ReleaseTests(unittest.TestCase):
             "ci-automation.yml",
             "ci-pricing.yml",
             "release-packages.yml",
+            "publish-lingxilit.yml",
             "security-oss-boundary.yml",
         }
         actual = {path.name for path in workflow_directory.iterdir()}
