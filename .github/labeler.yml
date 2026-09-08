@@ -11,7 +11,7 @@ openlit:
   - any-glob-to-any-file:
     - 'src/**'
     - 'assets/**'
-    - 'docker-compose.yml'
+    - 'deploy/arcane/**'
     - 'src/dev-docker-compose.yml'
 
 operator:
